@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Projects | Portfolio</title>
+    <style>
+      /* Base Styles */
+      :root {
+        --primary-color: #3a86ff;
+        --background-color: #f8f9fa;
+        --text-color: #333;
+        --section-bg: #ffffff;
+        --border-radius: 8px;
+        --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        line-height: 1.6;
+        color: var(--text-color);
+        background-color: var(--background-color);
+        padding-top: 70px;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      h1,
+      h2,
+      h3 {
+        margin-bottom: 1rem;
+      }
+
+      /* Header and Nav */
+      header {
+        background-color: #ffffff;
+        box-shadow: var(--box-shadow);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+      }
+
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 0;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary-color);
+      }
+
+      .nav-links {
+        display: flex;
+        list-style: none;
+      }
+
+      .nav-links li {
+        margin-left: 2rem;
+      }
+
+      .nav-links a {
+        color: var(--text-color);
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .nav-links a:hover {
+        color: var(--primary-color);
+      }
+
+      .hamburger {
+        display: none;
+        cursor: pointer;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+      }
+
+      /* Projects Gallery Styles */
+      .projects-gallery {
+        padding: 4rem 0;
+      }
+
+      .projects-header {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .filter-container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 2rem;
+      }
+
+      .filter-btn {
+        background-color: white;
+        border: 1px solid #ddd;
+        color: var(--text-color);
+        padding: 0.5rem 1.25rem;
+        margin: 0.25rem;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .filter-btn:hover {
+        background-color: #f0f0f0;
+      }
+
+      .filter-btn.active {
+        background-color: var(--primary-color);
+        color: white;
+        border-color: var(--primary-color);
+      }
+
+      .gallery-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .gallery-item {
+        position: relative;
+        overflow: hidden;
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+        aspect-ratio: 1/1;
+        cursor: pointer;
+        transition: transform 0.3s;
+      }
+
+      .gallery-item:hover {
+        transform: translateY(-5px);
+      }
+
+      .gallery-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s;
+      }
+
+      .gallery-item:hover .gallery-img {
+        transform: scale(1.05);
+      }
+
+      .gallery-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 1rem;
+        transform: translateY(100%);
+        transition: transform 0.3s;
+      }
+
+      .gallery-item:hover .gallery-overlay {
+        transform: translateY(0);
+      }
+
+      .gallery-title {
+        font-size: 1.1rem;
+        margin-bottom: 0.25rem;
+      }
+
+      .gallery-category {
+        font-size: 0.85rem;
+        opacity: 0.8;
+      }
+
+      /* Lightbox */
+      .lightbox {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 2000;
+        padding: 2rem;
+      }
+
+      .lightbox.active {
+        display: flex;
+      }
+
+      .lightbox-content {
+        position: relative;
+        max-width: 90%;
+        max-height: 90%;
+      }
+
+      .lightbox-img {
+        display: block;
+        max-width: 100%;
+        max-height: 80vh;
+        border-radius: var(--border-radius);
+      }
+
+      .lightbox-caption {
+        color: white;
+        text-align: center;
+        padding: 1rem 0;
+      }
+
+      .lightbox-close {
+        position: absolute;
+        top: -40px;
+        right: 0;
+        color: white;
+        font-size: 2rem;
+        cursor: pointer;
+        background: none;
+        border: none;
+      }
+
+      .lightbox-nav {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 1rem;
+        transform: translateY(-50%);
+      }
+
+      .lightbox-prev,
+      .lightbox-next {
+        color: white;
+        font-size: 2rem;
+        cursor: pointer;
+        background: none;
+        border: none;
+        padding: 0.5rem;
+        z-index: 2001;
+      }
+
+      /* Back to top button */
+      .back-to-top {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        background-color: var(--primary-color);
+        color: white;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        box-shadow: var(--box-shadow);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s;
+      }
+
+      .back-to-top.visible {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      /* Footer */
+      footer {
+        background-color: #ffffff;
+        text-align: center;
+        padding: 2rem 0;
+        margin-top: 2rem;
+      }
+
+      .social-links {
+        display: flex;
+        justify-content: center;
+        list-style: none;
+        margin-bottom: 1rem;
+      }
+
+      .social-links li {
+        margin: 0 0.5rem;
+      }
+
+      .social-links a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: var(--primary-color);
+        color: white;
+        transition: background-color 0.3s;
+      }
+
+      .social-links a:hover {
+        background-color: #2667ff;
+      }
+
+      /* Responsive Styles */
+      @media (max-width: 768px) {
+        body {
+          padding-top: 60px;
+        }
+
+        .nav-links {
+          position: fixed;
+          top: 60px;
+          left: 0;
+          right: 0;
+          background-color: white;
+          flex-direction: column;
+          align-items: center;
+          padding: 1rem 0;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          transform: translateY(-150%);
+          transition: transform 0.3s ease-in-out;
+        }
+
+        .nav-links.active {
+          transform: translateY(0);
+        }
+
+        .nav-links li {
+          margin: 0.5rem 0;
+        }
+
+        .hamburger {
+          display: block;
+        }
+
+        .gallery-container {
+          grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container">
+        <nav>
+          <div class="logo">Portfolio</div>
+          <button class="hamburger">☰</button>
+          <ul class="nav-links">
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#skills">Skills</a></li>
+            <li><a href="index.html#work">Work</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Projects Gallery Section -->
+    <section class="projects-gallery">
+      <div class="container">
+        <div class="projects-header">
+          <h1>My Projects</h1>
+          <p>A collection of my work organized by category</p>
+        </div>
+
+        <div class="filter-container">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="weapons">Weapons</button>
+          <button class="filter-btn" data-filter="items">Items</button>
+          <button class="filter-btn" data-filter="misc">Misc</button>
+        </div>
+
+        <div class="gallery-container" id="gallery">
+          <!-- Items will be populated by JavaScript -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+      <div class="lightbox-content">
+        <button class="lightbox-close">&times;</button>
+        <img src="" alt="" class="lightbox-img" id="lightbox-img" />
+        <div class="lightbox-caption" id="lightbox-caption"></div>
+        <div class="lightbox-nav">
+          <button class="lightbox-prev">&lsaquo;</button>
+          <button class="lightbox-next">&rsaquo;</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Back to top button -->
+    <a href="#" class="back-to-top" id="back-to-top">↑</a>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <ul class="social-links">
+          <li><a href="#" target="_blank">Gh</a></li>
+          <li><a href="#" target="_blank">Li</a></li>
+          <li><a href="#" target="_blank">Tw</a></li>
+          <li><a href="#" target="_blank">In</a></li>
+        </ul>
+        <p>the minecraft movie is gonna be epic!!!!!!!!</p>
+      </div>
+    </footer>
+
+    <script>
+      // Gallery items data
+      const galleryItems = [
+        {
+          id: 1,
+          title: "Combat Knife",
+          category: "weapons",
+          image: "images/combatkniferenderwatermarked.png", // Using placeholder for demonstration
+          description: "",
+        },
+        {
+          id: 2,
+          title: "Hunter x Hunter",
+          category: "misc",
+          image: "images/hxhlogorenderwatermarked.png",
+          description: "",
+        },
+        {
+          id: 3,
+          title: "Knight Slayer",
+          category: "weapons",
+          image: "images/knightslayerrenderwatermarked.png",
+          description: "",
+        },
+        {
+          id: 4,
+          title: "Kanobo",
+          category: "weapons",
+          image: "images/macerenderwatermarked.png",
+          description: "",
+        },
+        {
+          id: 5,
+          title: "One Piece",
+          category: "misc",
+          image: "images/onepiecerenderwatermarked.png",
+          description: "",
+        },
+        {
+          id: 6,
+          title: "Morrel's Pipe",
+          category: "weapons",
+          image: "images/piperenderwatermarked.png",
+          description: "",
+        },
+        {
+          id: 7,
+          title: "Sickles",
+          category: "weapons",
+          image: "images/sicklerenderwatermarked.png",
+          description: "",
+        },
+        {
+          id: 8,
+          title: "Toji's Dagger",
+          category: "misc",
+          image: "images/tojiswordrenderwatermarked.png",
+          description: "",
+        },
+      ];
+
+      // Populate gallery
+      function populateGallery(items) {
+        const gallery = document.getElementById("gallery");
+        gallery.innerHTML = "";
+
+        items.forEach((item) => {
+          const galleryItem = document.createElement("div");
+          galleryItem.className = "gallery-item";
+          galleryItem.dataset.id = item.id;
+          galleryItem.dataset.category = item.category;
+
+          galleryItem.innerHTML = `
+                    <img src="${item.image}" alt="${item.title}" class="gallery-img">
+                    <div class="gallery-overlay">
+                        <h3 class="gallery-title">${item.title}</h3>
+                        <p class="gallery-category">${item.category}</p>
+                    </div>
+                `;
+
+          gallery.appendChild(galleryItem);
+        });
+
+        addGalleryEventListeners();
+      }
+
+      // Add event listeners to gallery items
+      function addGalleryEventListeners() {
+        const galleryItems = document.querySelectorAll(".gallery-item");
+        galleryItems.forEach((item) => {
+          item.addEventListener("click", () => {
+            openLightbox(parseInt(item.dataset.id));
+          });
+        });
+      }
+
+      // Filter gallery items
+      function filterGallery(category) {
+        if (category === "all") {
+          populateGallery(galleryItems);
+        } else {
+          const filteredItems = galleryItems.filter(
+            (item) => item.category === category
+          );
+          populateGallery(filteredItems);
+        }
+      }
+
+      // Lightbox functionality
+      const lightbox = document.getElementById("lightbox");
+      const lightboxImg = document.getElementById("lightbox-img");
+      const lightboxCaption = document.getElementById("lightbox-caption");
+      const lightboxClose = document.querySelector(".lightbox-close");
+      const lightboxPrev = document.querySelector(".lightbox-prev");
+      const lightboxNext = document.querySelector(".lightbox-next");
+
+      let currentIndex = 0;
+      let currentItems = galleryItems;
+
+      function openLightbox(id) {
+        const activeFilter =
+          document.querySelector(".filter-btn.active").dataset.filter;
+        currentItems =
+          activeFilter === "all"
+            ? galleryItems
+            : galleryItems.filter((item) => item.category === activeFilter);
+
+        currentIndex = currentItems.findIndex((item) => item.id === id);
+        updateLightboxContent();
+
+        lightbox.classList.add("active");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeLightbox() {
+        lightbox.classList.remove("active");
+        document.body.style.overflow = "";
+      }
+
+      function updateLightboxContent() {
+        const item = currentItems[currentIndex];
+        lightboxImg.src = item.image;
+        lightboxImg.alt = item.title;
+        lightboxCaption.innerHTML = `<h3>${item.title}</h3><p>${item.description}</p>`;
+      }
+
+      function nextItem() {
+        currentIndex = (currentIndex + 1) % currentItems.length;
+        updateLightboxContent();
+      }
+
+      function prevItem() {
+        currentIndex =
+          (currentIndex - 1 + currentItems.length) % currentItems.length;
+        updateLightboxContent();
+      }
+
+      // Initialize event listeners on page load
+      document.addEventListener("DOMContentLoaded", () => {
+        // Populate gallery initially
+        populateGallery(galleryItems);
+
+        // Set up filter button event listeners
+        const filterButtons = document.querySelectorAll(".filter-btn");
+        filterButtons.forEach((button) => {
+          button.addEventListener("click", () => {
+            // Remove active class from all buttons
+            filterButtons.forEach((btn) => btn.classList.remove("active"));
+            // Add active class to clicked button
+            button.classList.add("active");
+            // Filter gallery
+            filterGallery(button.dataset.filter);
+          });
+        });
+
+        // Set up lightbox event listeners
+        lightboxClose.addEventListener("click", closeLightbox);
+        lightboxNext.addEventListener("click", nextItem);
+        lightboxPrev.addEventListener("click", prevItem);
+
+        // Close lightbox when clicking outside content
+        lightbox.addEventListener("click", (e) => {
+          if (e.target === lightbox) {
+            closeLightbox();
+          }
+        });
+
+        // Handle keyboard navigation for lightbox
+        document.addEventListener("keydown", (e) => {
+          if (!lightbox.classList.contains("active")) return;
+
+          if (e.key === "Escape") closeLightbox();
+          if (e.key === "ArrowRight") nextItem();
+          if (e.key === "ArrowLeft") prevItem();
+        });
+
+        // Mobile menu toggle
+        const hamburger = document.querySelector(".hamburger");
+        const navLinks = document.querySelector(".nav-links");
+
+        hamburger.addEventListener("click", () => {
+          navLinks.classList.toggle("active");
+        });
+
+        // Back to top button functionality
+        const backToTop = document.getElementById("back-to-top");
+
+        window.addEventListener("scroll", () => {
+          if (window.pageYOffset > 300) {
+            backToTop.classList.add("visible");
+          } else {
+            backToTop.classList.remove("visible");
+          }
+        });
+
+        backToTop.addEventListener("click", (e) => {
+          e.preventDefault();
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+        });
+
+        // Log to console for debugging
+        console.log("Portfolio gallery initialized successfully!");
+      });
+    </script>
+  </body>
+</html>
