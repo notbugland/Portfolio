@@ -4,6 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Portfolio</title>
+    <!-- Add Font Awesome CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
     <style>
       /* Base Styles */
       :root {
@@ -159,6 +164,8 @@
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
         gap: 1.5rem;
+        max-width: 800px;
+        margin: 0 auto;
       }
 
       .skill-card {
@@ -229,20 +236,44 @@
 
       /* Contact Section */
       .contact-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
         gap: 1.5rem;
+        max-width: 800px;
+        margin: 0 auto;
       }
 
-      .contact-item {
+      .contact-card {
         display: flex;
+        flex-direction: column;
         align-items: center;
+        text-align: center;
+        width: 180px;
       }
 
       .contact-icon {
-        margin-right: 1rem;
-        font-size: 1.5rem;
+        font-size: 2.5rem;
         color: var(--primary-color);
+        margin-bottom: 1rem;
+        cursor: pointer;
+      }
+
+      .contact-icon i {
+        transition: transform 0.3s, color 0.3s;
+      }
+
+      .contact-card:hover .contact-icon i {
+        transform: scale(1.2);
+      }
+
+      .contact-icon a {
+        color: var(--primary-color);
+        text-decoration: none;
+      }
+
+      .contact-icon a:hover i {
+        color: #2667ff;
       }
 
       /* Info Section & Dropdown Styles */
@@ -364,8 +395,7 @@
         }
 
         .skills-grid,
-        .projects-grid,
-        .contact-grid {
+        .projects-grid {
           grid-template-columns: 1fr;
         }
 
@@ -570,23 +600,45 @@
       <div class="container">
         <h2 class="section-title">Contact Me</h2>
         <div class="contact-grid">
-          <div class="card">
-            <div class="contact-item">
-              <div class="contact-icon">📧</div>
-              <div>
-                <h3>Email</h3>
-                <p>im.bugland@gmail.com <i>&lpar;not checked often)</i></p>
-              </div>
+          <div class="card contact-card">
+            <div class="contact-icon">
+              <a
+                href="https://discord.com/users/1142544574976381009"
+                target="_blank"
+                title="Discord Profile"
+              >
+                <i class="fab fa-discord"></i>
+              </a>
             </div>
+            <h3>Discord</h3>
+            <p>@im.bugland</p>
           </div>
-          <div class="card">
-            <div class="contact-item">
-              <div class="contact-icon">📱</div>
-              <div>
-                <h3>Discord</h3>
-                <p>@im.bugland</p>
-              </div>
+          <div class="card contact-card">
+            <div class="contact-icon">
+              <a
+                href="mailto:im.bugland@gmail.com"
+                target="_blank"
+                title="Send Email"
+              >
+                <i class="far fa-envelope"></i>
+              </a>
             </div>
+            <h3>Email</h3>
+            <p>im.bugland@gmail.com</p>
+            <p><i>(not checked often)</i></p>
+          </div>
+          <div class="card contact-card">
+            <div class="contact-icon">
+              <a
+                href="https://www.artstation.com/bugland"
+                target="_blank"
+                title="ArtStation Portfolio"
+              >
+                <i class="fab fa-artstation"></i>
+              </a>
+            </div>
+            <h3>ArtStation</h3>
+            <p>@bugland</p>
           </div>
         </div>
       </div>
