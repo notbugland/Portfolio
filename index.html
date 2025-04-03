@@ -102,7 +102,7 @@
         flex-direction: column;
         align-items: center;
         text-align: center;
-        padding: 4rem 0;
+        padding: 4rem 0 2rem 0;
       }
 
       .hero h1 {
@@ -245,59 +245,82 @@
         color: var(--primary-color);
       }
 
-      .contact-form {
-        margin-top: 2rem;
+      /* Info Section & Dropdown Styles */
+      .info-section {
+        padding: 0 0 2rem 0;
       }
 
-      .form-group {
+      .dropdown {
         margin-bottom: 1rem;
-      }
-
-      .form-control {
-        width: 100%;
-        padding: 0.75rem;
-        border: 1px solid #ddd;
+        background-color: var(--section-bg);
         border-radius: var(--border-radius);
-        font-family: inherit;
+        box-shadow: var(--box-shadow);
+        overflow: hidden;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
       }
 
-      textarea.form-control {
-        min-height: 150px;
-      }
-
-      /* Footer */
-      footer {
-        background-color: #ffffff;
-        text-align: center;
-        padding: 2rem 0;
-        margin-top: 2rem;
-      }
-
-      .social-links {
-        display: flex;
-        justify-content: center;
-        list-style: none;
-        margin-bottom: 1rem;
-      }
-
-      .social-links li {
-        margin: 0 0.5rem;
-      }
-
-      .social-links a {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
+      .dropdown-header {
         background-color: var(--primary-color);
         color: white;
-        transition: background-color 0.3s;
+        padding: 1rem;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: 600;
       }
 
-      .social-links a:hover {
-        background-color: #2667ff;
+      .dropdown-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+        background-color: white;
+      }
+
+      .dropdown-content.active {
+        max-height: 1000px;
+      }
+
+      .nested-dropdown {
+        border-bottom: 1px solid #eee;
+      }
+
+      .nested-dropdown:last-child {
+        border-bottom: none;
+      }
+
+      .nested-dropdown-header {
+        padding: 1rem;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #f1f1f1;
+        font-weight: 500;
+      }
+
+      .nested-dropdown-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+        padding: 0 1rem;
+      }
+
+      .nested-dropdown-content.active {
+        max-height: 500px;
+        padding: 1rem;
+      }
+
+      .nested-dropdown-content ol,
+      .nested-dropdown-content ul {
+        padding-left: 20px;
+        margin-bottom: 1rem;
+      }
+
+      .nested-dropdown-content li {
+        margin-bottom: 0.5rem;
       }
 
       /* Responsive Styles */
@@ -345,6 +368,10 @@
         .contact-grid {
           grid-template-columns: 1fr;
         }
+
+        .nested-dropdown-content {
+          width: 100%;
+        }
       }
     </style>
   </head>
@@ -369,12 +396,106 @@
     <section class="hero" id="about">
       <div class="container">
         <h1>Hello, I'm <span class="highlight">Bugland</span></h1>
+        <p>A 3D Weapons modeler!</p>
         <p>
-          A 3D Weapons modeler!
+          I work for <i>completely free! </i> Payment is 100% optional however
+          you must credit me in some way for my work. As a result quality and
+          timing will not always be guaranteed as I'm doing this for experience
+          to improve my skills.
         </p>
-        <p>I work for <i>completely free! </i> Payment is 100% optional however you must credit me in some way for my work. As a result quality and timing will not always be guaranteed as I'm doing this for experience to improve my skills.</p>
-        <p>To request a model DM me on Discord and if I'm not busy and the request is reasonable then I'll make it.</p>
+        <p>
+          To request a model DM me on Discord and if I'm not busy and the
+          request is reasonable then I'll make
+        </p>
         <a href="#contact" class="btn">Get In Touch</a>
+      </div>
+    </section>
+
+    <!-- Info Section with Dropdown Menus -->
+    <section id="info" class="info-section">
+      <div class="container">
+        <div class="dropdown">
+          <div class="dropdown-header">
+            <span>Important Information</span>
+            <span class="dropdown-icon">▼</span>
+          </div>
+          <div class="dropdown-content">
+            <div class="nested-dropdown">
+              <div class="nested-dropdown-header">
+                <span>Pay</span>
+                <span class="nested-dropdown-icon">▼</span>
+              </div>
+              <div class="nested-dropdown-content">
+                <p>
+                  All of my work is completely free! I do this for the
+                  experience and to improve my skills.
+                </p>
+                <p>
+                  If you'd like to support me, tips are appreciated but never
+                  required. (if you do plan to tip I can only accept
+                  robux/giftcards)
+                </p>
+                <p>
+                  The only requirement is that you credit me for my work by
+                  mentioning me in anyway (@im.bugland) in the game, video, etc.
+                  you plan to use my work in.
+                </p>
+              </div>
+            </div>
+            <div class="nested-dropdown">
+              <div class="nested-dropdown-header">
+                <span>How to Request a Model</span>
+                <span class="nested-dropdown-icon">▼</span>
+              </div>
+              <div class="nested-dropdown-content">
+                <p>To request a 3D model:</p>
+                <ol>
+                  <li>Message me on Discord (@im.bugland)</li>
+                  <li>
+                    Include a detailed description or reference images of what
+                    you want
+                  </li>
+                  <li>Mention your intended use (game, rendering, etc.)</li>
+                  <li>
+                    Specify any technical requirements (poly count, format,
+                    etc.)
+                  </li>
+                </ol>
+                <p>
+                  I'll review your request and let you know if I can take it on!
+                </p>
+              </div>
+            </div>
+            <div class="nested-dropdown">
+              <div class="nested-dropdown-header">
+                <span>Misc.</span>
+                <span class="nested-dropdown-icon">▼</span>
+              </div>
+              <div class="nested-dropdown-content">
+                <p>
+                  <strong>Turnaround Time:</strong> Since I do this work for
+                  free, I can't guarantee specific deadlines. Models may take 1
+                  day or up to 2 weeks depending on complexity. I'll alert you
+                  of delays if possible
+                </p>
+                <p>
+                  <strong>Rights:</strong> You're free to use the models I
+                  create for you in your projects, but I will most likely
+                  display them in my portfolio and mention you or your project.
+                </p>
+                <p>
+                  <strong>Revisions:</strong> I offer 1-2 rounds of revisions
+                  depending on the complexity of the request.
+                </p>
+                <p>
+                  <strong>File Formats:</strong> I typically provide .blend,
+                  .fbx, and .obj files. Texture files may also be sent
+                  separately.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -478,11 +599,8 @@
             </div>
           </div>
         </div>
-        </div>
       </div>
     </section>
-
-    <!-- Footer -->
 
     <script>
       // Mobile Navigation Toggle
@@ -520,15 +638,25 @@
         });
       });
 
-      // Form submission
-      const contactForm = document.getElementById("contact-form");
-      if (contactForm) {
-        contactForm.addEventListener("submit", function (e) {
-          e.preventDefault();
-          alert("Thank you for your message! I will get back to you soon.");
-          contactForm.reset();
+      // Dropdown toggles
+      document
+        .querySelector(".dropdown-header")
+        .addEventListener("click", function () {
+          const content = this.nextElementSibling;
+          content.classList.toggle("active");
+          const arrow = this.querySelector(".dropdown-icon");
+          arrow.textContent = content.classList.contains("active") ? "▲" : "▼";
         });
-      }
+
+      // Nested dropdown toggles
+      document.querySelectorAll(".nested-dropdown-header").forEach((header) => {
+        header.addEventListener("click", function () {
+          const content = this.nextElementSibling;
+          content.classList.toggle("active");
+          const arrow = this.querySelector(".nested-dropdown-icon");
+          arrow.textContent = content.classList.contains("active") ? "▲" : "▼";
+        });
+      });
     </script>
   </body>
 </html>
