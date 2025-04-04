@@ -102,11 +102,123 @@
         margin-bottom: 2rem;
       }
 
+      .controls-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-bottom: 2rem;
+        gap: 1.5rem;
+      }
+
+      /* Toggle Switch Styles */
+      .toggle-container {
+        display: flex;
+        align-items: center;
+        margin-right: 1rem;
+        position: relative;
+      }
+
+      .toggle-switch {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 30px;
+      }
+
+      .toggle-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .toggle-slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: 0.4s;
+        border-radius: 34px;
+      }
+
+      .toggle-slider:before {
+        position: absolute;
+        content: "";
+        height: 22px;
+        width: 22px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        transition: 0.4s;
+        border-radius: 50%;
+      }
+
+      input:checked + .toggle-slider {
+        background-color: var(--primary-color);
+      }
+
+      input:focus + .toggle-slider {
+        box-shadow: 0 0 1px var(--primary-color);
+      }
+
+      input:checked + .toggle-slider:before {
+        transform: translateX(30px);
+      }
+
+      .toggle-label {
+        margin-left: 10px;
+        font-weight: 500;
+      }
+
+      /* Tooltip Styles */
+      .tooltip {
+        position: relative;
+        display: inline-block;
+      }
+
+      .tooltip-text {
+        visibility: hidden;
+        width: 300px;
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 10px;
+        position: absolute;
+        z-index: 1;
+        bottom: 125%;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 0;
+        transition: opacity 0.3s;
+        font-size: 0.85rem;
+        line-height: 1.4;
+      }
+
+      .tooltip-text::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: #333 transparent transparent transparent;
+      }
+
+      .tooltip:hover .tooltip-text {
+        visibility: visible;
+        opacity: 1;
+      }
+
+      /* Filter Buttons */
       .filter-container {
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
-        margin-bottom: 2rem;
       }
 
       .filter-btn {
@@ -352,6 +464,15 @@
         .gallery-container {
           grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
         }
+
+        .controls-container {
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .tooltip-text {
+          width: 250px;
+        }
       }
     </style>
   </head>
@@ -377,14 +498,31 @@
       <div class="container">
         <div class="projects-header">
           <h1>My Projects</h1>
-          <p>A collection of my work.</p>
+          <p>
+            *Much of these are mid to high poly simply for rendering purposes
+            however I am able to create lower poly ones.
+          </p>
         </div>
 
-        <div class="filter-container">
-          <button class="filter-btn active" data-filter="all">All</button>
-          <button class="filter-btn" data-filter="weapons">Weapons</button>
-          <button class="filter-btn" data-filter="items">Items</button>
-          <button class="filter-btn" data-filter="misc">Misc</button>
+        <div class="controls-container">
+          <div class="toggle-container tooltip">
+            <label class="toggle-switch">
+              <input type="checkbox" id="topology-toggle" />
+              <span class="toggle-slider"></span>
+            </label>
+            <span class="toggle-label">Show Topology</span>
+            <span class="tooltip-text"
+              >Some topology displayed here isn't optimized due to the purpose
+              of the model being solely rending</span
+            >
+          </div>
+
+          <div class="filter-container">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="weapons">Weapons</button>
+            <button class="filter-btn" data-filter="items">Items</button>
+            <button class="filter-btn" data-filter="misc">Misc</button>
+          </div>
         </div>
 
         <div class="gallery-container" id="gallery">
@@ -418,7 +556,8 @@
           id: 1,
           title: "Combat Knife",
           category: "weapons",
-          image: "images/combatkniferenderwatermarked.png", // Using placeholder for demonstration
+          image: "images/combatkniferenderwatermarked.png",
+          topologyImage: "top/combat.png", // Replace with actual topology image path
           description: "",
         },
         {
@@ -426,6 +565,7 @@
           title: "Hunter x Hunter",
           category: "misc",
           image: "images/hxhlogorenderwatermarked.png",
+          topologyImage: "top/hunter.png", // Replace with actual topology image path
           description: "",
         },
         {
@@ -433,6 +573,7 @@
           title: "Knight Slayer",
           category: "weapons",
           image: "images/knightslayerrenderwatermarked.png",
+          topologyImage: "top/jinwoo.png", // Replace with actual topology image path
           description: "",
         },
         {
@@ -440,6 +581,7 @@
           title: "Kanobo",
           category: "weapons",
           image: "images/macerenderwatermarked.png",
+          topologyImage: "top/club.png", // Replace with actual topology image path
           description: "",
         },
         {
@@ -447,6 +589,7 @@
           title: "One Piece",
           category: "misc",
           image: "images/onepiecerenderwatermarked.png",
+          topologyImage: "top/onepiece (2).png", // Replace with actual topology image path
           description: "",
         },
         {
@@ -454,6 +597,7 @@
           title: "Morrel's Pipe",
           category: "weapons",
           image: "images/piperenderwatermarked.png",
+          topologyImage: "top/pipe.png", // Replace with actual topology image path
           description: "",
         },
         {
@@ -461,6 +605,7 @@
           title: "Sickles",
           category: "weapons",
           image: "images/sicklerenderwatermarked.png",
+          topologyImage: "top/sickle.png", // Replace with actual topology image path
           description: "",
         },
         {
@@ -468,6 +613,7 @@
           title: "Dead Rails",
           category: "misc",
           image: "images/deadrailswatermarked.png",
+          topologyImage: "top/elementor-placeholder-image.png", // Replace with actual topology image path
           description: "",
         },
         {
@@ -475,6 +621,7 @@
           title: "Toji's Dagger",
           category: "weapons",
           image: "images/tojiswordrenderwatermarked.png",
+          topologyImage: "top/toji.png", // Replace with actual topology image path
           description: "",
         },
         {
@@ -482,6 +629,7 @@
           title: "Mihawk's Sword",
           category: "weapons",
           image: "images/mihawkswordrenderwatermarked.png",
+          topologyImage: "top/mihawk.png", // Replace with actual topology image path
           description: "",
         },
         {
@@ -489,9 +637,13 @@
           title: "Pickaxe",
           category: "items",
           image: "images/picaxerenderedwatermarked.png",
+          topologyImage: "top/pickaxe.png", // Replace with actual topology image path
           description: "",
         },
       ];
+
+      // Track topology view state
+      let showTopology = false;
 
       // Populate gallery
       function populateGallery(items) {
@@ -504,13 +656,16 @@
           galleryItem.dataset.id = item.id;
           galleryItem.dataset.category = item.category;
 
+          // Use topology image if toggle is on, otherwise use regular image
+          const imageSrc = showTopology ? item.topologyImage : item.image;
+
           galleryItem.innerHTML = `
-                    <img src="${item.image}" alt="${item.title}" class="gallery-img">
-                    <div class="gallery-overlay">
-                        <h3 class="gallery-title">${item.title}</h3>
-                        <p class="gallery-category">${item.category}</p>
-                    </div>
-                `;
+            <img src="${imageSrc}" alt="${item.title}" class="gallery-img">
+            <div class="gallery-overlay">
+                <h3 class="gallery-title">${item.title}</h3>
+                <p class="gallery-category">${item.category}</p>
+            </div>
+          `;
 
           gallery.appendChild(galleryItem);
         });
@@ -573,7 +728,8 @@
 
       function updateLightboxContent() {
         const item = currentItems[currentIndex];
-        lightboxImg.src = item.image;
+        // Use topology image if toggle is on, otherwise use regular image
+        lightboxImg.src = showTopology ? item.topologyImage : item.image;
         lightboxImg.alt = item.title;
         lightboxCaption.innerHTML = `<h3>${item.title}</h3><p>${item.description}</p>`;
       }
@@ -593,6 +749,29 @@
       document.addEventListener("DOMContentLoaded", () => {
         // Populate gallery initially
         populateGallery(galleryItems);
+
+        // Set up toggle switch event listener
+        const topologyToggle = document.getElementById("topology-toggle");
+        topologyToggle.addEventListener("change", () => {
+          showTopology = topologyToggle.checked;
+
+          // Re-populate gallery with current filter
+          const activeFilter =
+            document.querySelector(".filter-btn.active").dataset.filter;
+          if (activeFilter === "all") {
+            populateGallery(galleryItems);
+          } else {
+            const filteredItems = galleryItems.filter(
+              (item) => item.category === activeFilter
+            );
+            populateGallery(filteredItems);
+          }
+
+          // Update lightbox if it's open
+          if (lightbox.classList.contains("active")) {
+            updateLightboxContent();
+          }
+        });
 
         // Set up filter button event listeners
         const filterButtons = document.querySelectorAll(".filter-btn");
