@@ -5,405 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Portfolio</title>
     <!-- Add Font Awesome CSS -->
+    <link rel="stylesheet" href="styles.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
-    <style>
-      /* Base Styles */
-      :root {
-        --primary-color: #3a86ff;
-        --background-color: #f8f9fa;
-        --text-color: #333;
-        --section-bg: #ffffff;
-        --border-radius: 8px;
-        --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      }
-
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
-          Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-        line-height: 1.6;
-        color: var(--text-color);
-        background-color: var(--background-color);
-        padding-top: 70px;
-      }
-
-      .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
-      }
-
-      h1,
-      h2,
-      h3 {
-        margin-bottom: 1rem;
-      }
-
-      p {
-        margin-bottom: 1rem;
-      }
-
-      /* Header and Nav */
-      header {
-        background-color: #ffffff;
-        box-shadow: var(--box-shadow);
-        position: fixed;
-        top: 0;
-        width: 100%;
-        z-index: 1000;
-      }
-
-      nav {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1rem 0;
-      }
-
-      .logo {
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: var(--primary-color);
-      }
-
-      .nav-links {
-        display: flex;
-        list-style: none;
-      }
-
-      .nav-links li {
-        margin-left: 2rem;
-      }
-
-      .nav-links a {
-        color: var(--text-color);
-        text-decoration: none;
-        transition: color 0.3s;
-      }
-
-      .nav-links a:hover {
-        color: var(--primary-color);
-      }
-
-      .hamburger {
-        display: none;
-        cursor: pointer;
-        background: none;
-        border: none;
-        font-size: 1.5rem;
-      }
-
-      /* Hero Section */
-      .hero {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        padding: 4rem 0 2rem 0;
-      }
-
-      .hero h1 {
-        font-size: 2.5rem;
-        margin-bottom: 1rem;
-      }
-
-      .hero p {
-        font-size: 1.2rem;
-        max-width: 600px;
-        margin-bottom: 2rem;
-      }
-
-      .btn {
-        display: inline-block;
-        background-color: var(--primary-color);
-        color: white;
-        padding: 0.75rem 1.5rem;
-        border-radius: var(--border-radius);
-        text-decoration: none;
-        transition: background-color 0.3s;
-      }
-
-      .btn:hover {
-        background-color: #2667ff;
-      }
-
-      /* Section Styles */
-      section {
-        padding: 4rem 0;
-      }
-
-      .section-title {
-        text-align: center;
-        margin-bottom: 2.5rem;
-      }
-
-      .card {
-        background-color: var(--section-bg);
-        border-radius: var(--border-radius);
-        box-shadow: var(--box-shadow);
-        padding: 1.5rem;
-        margin-bottom: 1.5rem;
-        transition: transform 0.3s, box-shadow 0.3s;
-      }
-
-      .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-      }
-
-      /* Skills Section */
-      .skills-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 1.5rem;
-        max-width: 800px;
-        margin: 0 auto;
-      }
-
-      .skill-card {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-      }
-
-      .skill-icon {
-        background-color: rgba(58, 134, 255, 0.1);
-        border-radius: 50%;
-        width: 60px;
-        height: 60px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 1rem;
-        font-size: 1.5rem;
-        color: var(--primary-color);
-      }
-
-      /* Work Section */
-      .projects-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 1.5rem;
-      }
-
-      .project-card {
-        position: relative;
-        overflow: hidden;
-        height: 250px;
-        cursor: pointer;
-      }
-
-      .project-img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.5s;
-      }
-
-      .project-overlay {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background-color: rgba(0, 0, 0, 0.7);
-        color: white;
-        padding: 1rem;
-        transform: translateY(100%);
-        transition: transform 0.3s;
-      }
-
-      .project-card:hover .project-overlay {
-        transform: translateY(0);
-      }
-
-      .project-card:hover .project-img {
-        transform: scale(1.05);
-      }
-
-      .view-all {
-        text-align: center;
-        margin-top: 2rem;
-      }
-
-      /* Contact Section */
-      .contact-grid {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 1.5rem;
-        max-width: 800px;
-        margin: 0 auto;
-      }
-
-      .contact-card {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        width: 180px;
-      }
-
-      .contact-icon {
-        font-size: 2.5rem;
-        color: var(--primary-color);
-        margin-bottom: 1rem;
-        cursor: pointer;
-      }
-
-      .contact-icon i {
-        transition: transform 0.3s, color 0.3s;
-      }
-
-      .contact-card:hover .contact-icon i {
-        transform: scale(1.2);
-      }
-
-      .contact-icon a {
-        color: var(--primary-color);
-        text-decoration: none;
-      }
-
-      .contact-icon a:hover i {
-        color: #2667ff;
-      }
-
-      /* Info Section & Dropdown Styles */
-      .info-section {
-        padding: 0 0 2rem 0;
-      }
-
-      .dropdown {
-        margin-bottom: 1rem;
-        background-color: var(--section-bg);
-        border-radius: var(--border-radius);
-        box-shadow: var(--box-shadow);
-        overflow: hidden;
-        max-width: 800px;
-        margin-left: auto;
-        margin-right: auto;
-      }
-
-      .dropdown-header {
-        background-color: var(--primary-color);
-        color: white;
-        padding: 1rem;
-        cursor: pointer;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-weight: 600;
-      }
-
-      .dropdown-content {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s ease-out;
-        background-color: white;
-      }
-
-      .dropdown-content.active {
-        max-height: 1000px;
-      }
-
-      .nested-dropdown {
-        border-bottom: 1px solid #eee;
-      }
-
-      .nested-dropdown:last-child {
-        border-bottom: none;
-      }
-
-      .nested-dropdown-header {
-        padding: 1rem;
-        cursor: pointer;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background-color: #f1f1f1;
-        font-weight: 500;
-      }
-
-      .nested-dropdown-content {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s ease-out;
-        padding: 0 1rem;
-      }
-
-      .nested-dropdown-content.active {
-        max-height: 500px;
-        padding: 1rem;
-      }
-
-      .nested-dropdown-content ol,
-      .nested-dropdown-content ul {
-        padding-left: 20px;
-        margin-bottom: 1rem;
-      }
-
-      .nested-dropdown-content li {
-        margin-bottom: 0.5rem;
-      }
-
-      /* Responsive Styles */
-      @media (max-width: 768px) {
-        body {
-          padding-top: 60px;
-        }
-
-        .nav-links {
-          position: fixed;
-          top: 60px;
-          left: 0;
-          right: 0;
-          background-color: white;
-          flex-direction: column;
-          align-items: center;
-          padding: 1rem 0;
-          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-          transform: translateY(-150%);
-          transition: transform 0.3s ease-in-out;
-        }
-
-        .nav-links.active {
-          transform: translateY(0);
-        }
-
-        .nav-links li {
-          margin: 0.5rem 0;
-        }
-
-        .hamburger {
-          display: block;
-        }
-
-        .hero h1 {
-          font-size: 2rem;
-        }
-
-        .hero p {
-          font-size: 1rem;
-        }
-
-        .skills-grid,
-        .projects-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .nested-dropdown-content {
-          width: 100%;
-        }
-      }
-    </style>
   </head>
   <body>
     <!-- Header -->
@@ -414,8 +20,8 @@
           <button class="hamburger">☰</button>
           <ul class="nav-links">
             <li><a href="#about">About</a></li>
-            <li><a href="#skills">Skills</a></li>
             <li><a href="#work">Work</a></li>
+            <li><a href="#experience">Experience & Skills</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>
         </nav>
@@ -430,6 +36,8 @@
         <a href="#contact" class="btn">Get In Touch</a>
       </div>
     </section>
+
+    <div class="section-separator"></div>
 
     <!-- Info Section with Dropdown Menus -->
     <section id="info" class="info-section">
@@ -519,31 +127,7 @@
       </div>
     </section>
 
-    <!-- Skills Section -->
-    <section id="skills">
-      <div class="container">
-        <h2 class="section-title">My Skills</h2>
-        <div class="skills-grid">
-          <div class="card skill-card">
-            <div class="skill-icon">BL</div>
-            <h3>Modeling</h3>
-            <p>
-              Creating detailed high, medium, and low poly models in Blender.
-            </p>
-          </div>
-          <div class="card skill-card">
-            <div class="skill-icon">AO</div>
-            <h3>Asset Optimization</h3>
-            <p>Optimizing assets for Roblox Studio.</p>
-          </div>
-          <div class="card skill-card">
-            <div class="skill-icon">SP</div>
-            <h3>Texturing</h3>
-            <p>Creating custom textures within Substance Painter.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+    <div class="section-separator"></div>
 
     <!-- Work Section -->
     <section id="work">
@@ -595,6 +179,95 @@
       </div>
     </section>
 
+    <div class="section-separator"></div>
+
+    <!-- Experience Section with Skills Dropdown -->
+    <section id="experience">
+      <div class="container">
+        <h2 class="section-title">My Experience & Skills</h2>
+
+        <!-- Skills Dropdown -->
+        <div class="dropdown" style="margin-bottom: 2rem">
+          <div class="dropdown-header">
+            <span>My Skills</span>
+            <span class="dropdown-icon">▼</span>
+          </div>
+          <div class="dropdown-content">
+            <div class="skills-grid" style="padding: 1.5rem">
+              <div class="card skill-card">
+                <div class="skill-icon">BL</div>
+                <h3>Modeling</h3>
+                <p>
+                  Creating detailed high, medium, and low poly models in
+                  Blender.
+                </p>
+              </div>
+              <div class="card skill-card">
+                <div class="skill-icon">AO</div>
+                <h3>Asset Optimization</h3>
+                <p>Optimizing assets for Roblox Studio.</p>
+              </div>
+              <div class="card skill-card">
+                <div class="skill-icon">SP</div>
+                <h3>Texturing</h3>
+                <p>Creating custom textures within Substance Painter.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Experience Timeline -->
+        <div class="experience-timeline">
+          <div class="card experience-item">
+            <div class="experience-date">2023 - Present</div>
+            <h3 class="experience-title">Blender 3D Modeling</h3>
+            <p class="experience-description">
+              3+ years of experience with Blender, specializing in hard-surface
+              modeling and props. Proficient in modeling techniques including
+              subdivision modeling, boolean operations, and edge flow
+              optimization. Experience with modifiers, lighting setups, and
+              rendering with Cycles and Eevee.
+            </p>
+          </div>
+
+          <div class="card experience-item">
+            <div class="experience-date">2022 - Present</div>
+            <h3 class="experience-title">Substance Painter</h3>
+            <p class="experience-description">
+              2+ years working with Substance Painter for texturing and material
+              creation. Skills include UV unwrapping, texture baking, material
+              layering, and creating PBR materials. Experience with procedural
+              texturing and hand-painted details.
+            </p>
+          </div>
+
+          <div class="card experience-item">
+            <div class="experience-date">2022 - 2023</div>
+            <h3 class="experience-title">Roblox Game Asset Creation</h3>
+            <p class="experience-description">
+              Created and optimized low-poly assets for multiple Roblox game
+              projects. Worked with developers to ensure assets met performance
+              requirements while maintaining visual quality. Collaborated with
+              team members on asset pipelines and integration.
+            </p>
+          </div>
+
+          <div class="card experience-item">
+            <div class="experience-date">2021 - Present</div>
+            <h3 class="experience-title">Game Asset Optimization</h3>
+            <p class="experience-description">
+              Specialized in optimizing 3D models for game environments,
+              particularly for Roblox Studio. Experience with LOD creation,
+              polygon reduction techniques, and texture optimization. Knowledge
+              of performance considerations for real-time rendering.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-separator"></div>
+
     <!-- Contact Section -->
     <section id="contact">
       <div class="container">
@@ -606,6 +279,7 @@
                 href="https://discord.com/users/1142544574976381009"
                 target="_blank"
                 title="Discord Profile"
+                aria-label="Discord Profile"
               >
                 <i class="fab fa-discord"></i>
               </a>
@@ -619,6 +293,7 @@
                 href="mailto:im.bugland@gmail.com"
                 target="_blank"
                 title="Send Email"
+                aria-label="Send Email"
               >
                 <i class="far fa-envelope"></i>
               </a>
@@ -633,6 +308,7 @@
                 href="https://www.artstation.com/bugland"
                 target="_blank"
                 title="ArtStation Portfolio"
+                aria-label="ArtStation Portfolio"
               >
                 <i class="fab fa-artstation"></i>
               </a>
@@ -681,14 +357,14 @@
       });
 
       // Dropdown toggles
-      document
-        .querySelector(".dropdown-header")
-        .addEventListener("click", function () {
+      document.querySelectorAll(".dropdown-header").forEach((header) => {
+        header.addEventListener("click", function () {
           const content = this.nextElementSibling;
           content.classList.toggle("active");
           const arrow = this.querySelector(".dropdown-icon");
           arrow.textContent = content.classList.contains("active") ? "▲" : "▼";
         });
+      });
 
       // Nested dropdown toggles
       document.querySelectorAll(".nested-dropdown-header").forEach((header) => {
